@@ -893,10 +893,11 @@ mod test {
         const NUM_TASKS: usize = 10;
         let resources = (0..NUM_RESOURCES).map(|id| Rsrc { id }).collect::<Vec<_>>();
 
-        let mut order = (0..NUM_TASKS).collect::<Vec::<_>>();
+        let mut order = (0..NUM_TASKS).collect::<Vec<_>>();
         order.shuffle(&mut thread_rng());
 
-        let mut futures = order.into_iter()
+        let mut futures = order
+            .into_iter()
             .map(|i| {
                 let results = Arc::clone(&results);
                 scheduler.lock().unwrap().schedule_future(
